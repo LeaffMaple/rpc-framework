@@ -71,6 +71,7 @@ public class NettyClient {
                 });
                //阻塞等待 ，直到Channel关闭
                 futureChannel.closeFuture().sync();
+//                System.out.println("客户端关闭");
                // 将服务端返回的数据也就是RpcResponse对象取出
                 AttributeKey<RpcResponse> key = AttributeKey.valueOf("rpcResponse");
                 return futureChannel.attr(key).get();

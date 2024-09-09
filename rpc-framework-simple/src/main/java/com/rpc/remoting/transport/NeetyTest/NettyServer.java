@@ -49,6 +49,7 @@ public class NettyServer {
             ChannelFuture f = b.bind(port).sync();
             // 等待服务端监听端口关闭
             f.channel().closeFuture().sync();
+//            System.out.println("服务端关闭");
         } catch (InterruptedException e) {
             logger.error("occur exception when start server:", e);
         } finally {
