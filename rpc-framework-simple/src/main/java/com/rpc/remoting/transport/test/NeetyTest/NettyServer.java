@@ -1,4 +1,4 @@
-package com.rpc.remoting.transport.NeetyTest;
+package com.rpc.remoting.transport.test.NeetyTest;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;

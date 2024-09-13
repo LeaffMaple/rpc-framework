@@ -1,19 +1,20 @@
 package com.rpc.remoting.transport;
 
 
+import com.rpc.extension.SPI;
+import com.rpc.remoting.dto.RpcRequest;
+
 /**
- * send RpcRequest。
+ * 发送rpc请求
  *
- * @author shuang.kou
- * @createTime 2020年05月29日 13:26:00
  */
-//@SPI
+@SPI
 public interface RpcRequestTransport {
     /**
-     * send rpc request to server and get result
+     * 发送RPC（远程过程调用）请求并获取结果
      *
      * @param rpcRequest message body
      * @return data from server
      */
-//    Object sendRpcRequest(RpcRequest rpcRequest);
+    Object sendRpcRequest(RpcRequest rpcRequest);
 }
