@@ -13,7 +13,7 @@ import java.net.InetSocketAddress;
 @SPI
 public interface ServiceDiscovery {
     /**
-     * 查找服务通过服务名
+     * 根据 rpcServiceName 获取远程服务地
      *
      * @param rpcRequest rpc service pojo
      * @return service address
