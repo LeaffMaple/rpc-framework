@@ -16,6 +16,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * refer to dubbo spi: https://dubbo.apache.org/zh-cn/docs/source_code_guide/dubbo-spi.html
+ * 源码分析: https://cn.dubbo.apache.org/zh-cn/docsv2.7/dev/source/dubbo-spi/
  */
 @Slf4j
 public final class ExtensionLoader<T> {
@@ -101,6 +102,7 @@ public final class ExtensionLoader<T> {
      */
     private T createExtension(String name) {
         // 从文件中加载所有扩展类，并通过名称获取特定的一个
+        // 从配置文件中加载所有的拓展类，可得到“配置项名称”到“配置类”的映射关系表
         Class<?> clazz = getExtensionClasses().get(name);
         if (clazz == null) {
             throw new RuntimeException("No such extension of name " + name);

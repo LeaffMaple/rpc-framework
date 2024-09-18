@@ -2,10 +2,12 @@ package com.rpc.provider.impl;
 
 import com.rpc.config.RpcServiceConfig;
 import com.rpc.enums.RpcErrorMessageEnum;
+import com.rpc.enums.ServiceRegistryEnum;
 import com.rpc.exception.RpcException;
 import com.rpc.extension.ExtensionLoader;
 import com.rpc.provider.ServiceProvider;
 import com.rpc.registry.ServiceRegistry;
+import com.rpc.server.NettyRpcServer;
 import lombok.extern.slf4j.Slf4j;
 
 import java.net.InetAddress;
@@ -52,6 +54,10 @@ public class ZkServiceProviderImpl implements ServiceProvider {
         return service;
     }
 
+    /**
+     * 发布服务
+     * @param rpcServiceConfig rpc service related attributes
+     */
     @Override
     public void publishService(RpcServiceConfig rpcServiceConfig) {
         try {
