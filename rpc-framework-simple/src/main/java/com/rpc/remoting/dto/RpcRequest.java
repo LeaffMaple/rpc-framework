@@ -2,12 +2,14 @@ package com.rpc.remoting.dto;
 
 import lombok.*;
 
+import java.io.Serializable;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Builder
 @ToString
-public class RpcRequest {
+public class RpcRequest implements Serializable {
     /**
      * 序列化版本号
      */

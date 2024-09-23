@@ -33,17 +33,20 @@ import java.util.Arrays;
  * body（object类型数据）
  * </pre>
  * <p>
- * {@link LengthFieldBasedFrameDecoder} is a length-based decoder , used to solve TCP unpacking and sticking problems.
+ * {@link LengthFieldBasedFrameDecoder} 是一个基于消息长度字段的解码器，用来解决 TCP 的粘包/拆包问题。
+ * 粘包/拆包是指由于 TCP 传输是基于流的，没有明确的消息边界，接收方可能会将多条消息当作一条处理（粘包），
+ * 或将一条消息拆开来处理（拆包）。这个解码器通过解析数据流中的长度字段，确保每次能完整地接收到一条消息。
  * </p>
  *
  */
 @Slf4j
 public class RpcMessageDecoder extends LengthFieldBasedFrameDecoder {
     public RpcMessageDecoder() {
-        // lengthFieldOffset: magic code is 4B, and version is 1B, and then full length. so value is 5
-        // lengthFieldLength: full length is 4B. so value is 4
-        // lengthAdjustment: full length include all data and read 9 bytes before, so the left length is (fullLength-9). so values is -9
-        // initialBytesToStrip: we will check magic code and version manually, so do not strip any bytes. so values is 0
+        // maxFrameLength：最大数据帧长度，超过这个长度会被抛弃
+        // lengthFieldOffset：长度字段的偏移位置（magic number 4 字节 + 版本号 1 字节 = 5）
+        // lengthFieldLength：长度字段的长度（消息长度占用 4 字节）
+        // lengthAdjustment：长度修正值，用来调整消息体的实际长度  (已经读了的9个字节, 所以要-9)
+        // initialBytesToStrip：从解码后的 ByteBuf 中跳过的字节数
         this(RpcConstants.MAX_FRAME_LENGTH, 5, 4, -9, 0);
     }
 

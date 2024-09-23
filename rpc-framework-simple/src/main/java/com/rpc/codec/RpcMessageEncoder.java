@@ -44,28 +44,34 @@ public class RpcMessageEncoder extends MessageToByteEncoder<RpcMessage> {
     @Override
     protected void encode(ChannelHandlerContext ctx, RpcMessage rpcMessage, ByteBuf out) {
         try {
+            //写入魔数
             out.writeBytes(RpcConstants.MAGIC_NUMBER);
+            //写入版本号
             out.writeByte(RpcConstants.VERSION);
-            // leave a place to write the value of full length
+            // 为总长度预留4个字节的空间（稍后会填充）
             out.writerIndex(out.writerIndex() + 4);
+            //写入消息类型
             byte messageType = rpcMessage.getMessageType();
             out.writeByte(messageType);
+            //写入编码类型
             out.writeByte(rpcMessage.getCodec());
+            //写入压缩类型
             out.writeByte(CompressTypeEnum.GZIP.getCode());
+            //写入消息的唯一标识
             out.writeInt(ATOMIC_INTEGER.getAndIncrement());
-            // build full length
+            // 计算消息的总长度（头部长度 + 消息体长度）
             byte[] bodyBytes = null;
-            int fullLength = RpcConstants.HEAD_LENGTH;
-            // if messageType is not heartbeat message,fullLength = head length + body length
+            int fullLength = RpcConstants.HEAD_LENGTH;//除去消息体外，一共有16个字节
+            // 如果消息不是心跳消息，处理消息体的序列化和压缩
             if (messageType != RpcConstants.HEARTBEAT_REQUEST_TYPE
                     && messageType != RpcConstants.HEARTBEAT_RESPONSE_TYPE) {
-                // serialize the object
+                // 获取序列化器，根据消息中的编码类型进行序列化
                 String codecName = SerializationTypeEnum.getName(rpcMessage.getCodec());
                 log.info("codec name: [{}] ", codecName);
                 Serializer serializer = ExtensionLoader.getExtensionLoader(Serializer.class)
                         .getExtension(codecName);
                 bodyBytes = serializer.serialize(rpcMessage.getData());
-                // compress the bytes
+                // 获取压缩算法，根据压缩类型对序列化后的字节进行压缩
                 String compressName = CompressTypeEnum.getName(rpcMessage.getCompress());
                 Compress compress = ExtensionLoader.getExtensionLoader(Compress.class)
                         .getExtension(compressName);
