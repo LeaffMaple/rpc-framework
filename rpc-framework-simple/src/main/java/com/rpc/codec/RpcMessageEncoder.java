@@ -16,6 +16,8 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
+
+
 /**
  * <p>
  * custom protocol decoder
@@ -61,7 +63,7 @@ public class RpcMessageEncoder extends MessageToByteEncoder<RpcMessage> {
             out.writeInt(ATOMIC_INTEGER.getAndIncrement());
             // 计算消息的总长度（头部长度 + 消息体长度）
             byte[] bodyBytes = null;
-            int fullLength = RpcConstants.HEAD_LENGTH;//除去消息体外，一共有16个字节
+            int fullLength = RpcConstants.HEAD_LENGTH;//除去消息体外，一共有16个字节(可以看自定义结构)
             // 如果消息不是心跳消息，处理消息体的序列化和压缩
             if (messageType != RpcConstants.HEARTBEAT_REQUEST_TYPE
                     && messageType != RpcConstants.HEARTBEAT_RESPONSE_TYPE) {
@@ -91,7 +93,5 @@ public class RpcMessageEncoder extends MessageToByteEncoder<RpcMessage> {
         }
 
     }
-
-
 }
 
