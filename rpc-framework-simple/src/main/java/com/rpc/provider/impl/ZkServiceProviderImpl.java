@@ -34,6 +34,10 @@ public class ZkServiceProviderImpl implements ServiceProvider {
         serviceRegistry = ExtensionLoader.getExtensionLoader(ServiceRegistry.class).getExtension(ServiceRegistryEnum.ZK.getName());
     }
 
+    /**
+     * 添加服务
+     * @param rpcServiceConfig rpc service related attributes
+     */
     @Override
     public void addService(RpcServiceConfig rpcServiceConfig) {
         String rpcServiceName = rpcServiceConfig.getRpcServiceName();

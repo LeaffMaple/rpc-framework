@@ -104,7 +104,8 @@ public final class ExtensionLoader<T> {
         // 从文件中加载所有扩展类，并通过名称获取特定的一个
         // 从配置文件中加载所有的拓展类，可得到“配置项名称”到“配置类”的映射关系表
         Class<?> clazz = getExtensionClasses().get(name);
-        if (clazz == null) {
+
+        if (clazz == null) {;
             throw new RuntimeException("No such extension of name " + name);
         }
         T instance = (T) EXTENSION_INSTANCES.get(clazz);
