@@ -37,7 +37,7 @@ public class SocketRpcServer {
     public void start() {
         try (ServerSocket server = new ServerSocket()) {
             String host = InetAddress.getLocalHost().getHostAddress();
-            //todo port换成静态变量
+            //todo port换成静态变量或配置
             server.bind(new InetSocketAddress(host, 9998));
             CustomShutdownHook.getCustomShutdownHook().clearAll();
             Socket socket;
