@@ -17,7 +17,7 @@ public class TestServiceImpl implements TestService {
     @Override
     public String test(Test test) {
         log.info("TestServiceImpl收到: {}.", test.getMessage());
-        String result = "Hello description is " + test.getDescription();
+        String result = "description is " + test.getDescription();
         log.info("TestServiceImpl返回: {}.", result);
         return result;
     }

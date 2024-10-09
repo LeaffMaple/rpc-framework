@@ -18,7 +18,7 @@ import java.io.ByteArrayOutputStream;
 public class KryoSerializer implements Serializer {
 
     /**
-     * Because Kryo is not thread safe. So, use ThreadLocal to store Kryo objects
+     * Kyro不是线程安全的，所以用ThreadLocal来存储Kryo对象
      */
     private final ThreadLocal<Kryo> kryoThreadLocal = ThreadLocal.withInitial(() -> {
         Kryo kryo = new Kryo();

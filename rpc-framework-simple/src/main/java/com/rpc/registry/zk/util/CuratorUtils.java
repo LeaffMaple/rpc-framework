@@ -126,7 +126,7 @@ public final class CuratorUtils {
     /**
      * 注册监听器以监听指定节点的变化。
      *
-     * @param rpcServiceName RPC服务名称，例如：github.javaguide.HelloServicetest2version
+     * @param rpcServiceName RPC服务名称
      */
     private static void registerWatcher(String rpcServiceName, CuratorFramework zkClient) throws Exception {
         String servicePath = ZK_REGISTER_ROOT_PATH + "/" + rpcServiceName;
