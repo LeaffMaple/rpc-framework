@@ -1,4 +1,4 @@
-package com.rpc.codec;
+package com.rpc.remoting.transport.netty.codec;
 
 
 import com.rpc.Serializer.Serializer;
